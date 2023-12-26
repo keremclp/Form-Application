@@ -36,7 +36,8 @@ namespace Visual1
                     AccessCommand.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Record inserted successfully!");
+                MessageBox.Show("Record inserted successfully!!!");
+                MessageBox.Show("Record inserted successfully!!!");
             }
             catch (Exception ex)
             {
