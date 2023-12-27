@@ -23,7 +23,7 @@ namespace Visual1
         private void button1_Click_1(object sender, EventArgs e)
         {
             conn.Open();
-
+            int rowsAffected = 0;
             try
             {
                 string sqlText = "INSERT INTO [Users] ([Username], [Password]) VALUES (?, ?)";
@@ -33,20 +33,33 @@ namespace Visual1
                     AccessCommand.Parameters.AddWithValue("@Username", textBox1.Text);
                     AccessCommand.Parameters.AddWithValue("@Password", textBox2.Text);
 
-                    AccessCommand.ExecuteNonQuery();
-                }
+                    rowsAffected = AccessCommand.ExecuteNonQuery();
+                }   
 
                 MessageBox.Show("Record inserted successfully!!!");
                 MessageBox.Show("Record inserted successfully!!!");
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            finally
+            if (rowsAffected > 0)
             {
-                conn.Close();
+                MessageBox.Show("Signup successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Hide the current form (signup form)
+                this.Hide();
+
+                // Show the sign-in form
+                Sign_in signInForm = new Sign_in();
+                signInForm.ShowDialog(); // Use Show() instead if you want a non-modal window
             }
+            else
+            {
+                MessageBox.Show("Signup failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
 
