@@ -15,9 +15,14 @@ namespace Visual1
 {
     public partial class Form1 : Form
     {
+        private static Sign_in signInFormInstance;
         public Form1()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            if (signInFormInstance == null)
+            {
+                signInFormInstance = new Sign_in();
+            }
         }
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
         private void button1_Click_1(object sender, EventArgs e)
@@ -53,8 +58,8 @@ namespace Visual1
                 this.Hide();
 
                 // Show the sign-in form
-                Sign_in signInForm = new Sign_in();
-                signInForm.ShowDialog(); // Use Show() instead if you want a non-modal window
+
+                signInFormInstance.ShowDialog(); // Use Show() instead if you want a non-modal window
             }
             else
             {
@@ -63,7 +68,10 @@ namespace Visual1
             
         }
 
-
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Hide();
+            signInFormInstance.Show();
+        }
     }
 }
