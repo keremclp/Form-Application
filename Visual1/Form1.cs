@@ -26,12 +26,13 @@ namespace Visual1
             int rowsAffected = 0;
             try
             {
-                string sqlText = "INSERT INTO [Users] ([Username], [Password]) VALUES (?, ?)";
+                string sqlText = "INSERT INTO [Users] ([Username], [Password], [Roles]) VALUES (?, ?, ?)";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
                     AccessCommand.Parameters.AddWithValue("@Username", textBox1.Text);
                     AccessCommand.Parameters.AddWithValue("@Password", textBox2.Text);
+                    AccessCommand.Parameters.AddWithValue("@Roles", comboBox1.SelectedItem.ToString());
 
                     rowsAffected = AccessCommand.ExecuteNonQuery();
                 }   
