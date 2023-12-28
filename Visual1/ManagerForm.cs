@@ -23,7 +23,7 @@ namespace Visual1
         private void button1_Click(object sender, EventArgs e)
         {
             conn.Open();
-            int rowsAffected = 0;
+            
             try
             {
                 string sqlText = "INSERT INTO [Book] ([BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status]) VALUES (?, ?, ?, ?, ?, ?)";
@@ -37,10 +37,9 @@ namespace Visual1
                     AccessCommand.Parameters.AddWithValue("@PageNumber", int.Parse(textBox5.Text));
                     AccessCommand.Parameters.AddWithValue("@Status", false);
 
-                    rowsAffected = AccessCommand.ExecuteNonQuery();
+                    AccessCommand.ExecuteNonQuery();
                 }
 
-                MessageBox.Show("Record inserted successfully!!!");
                 MessageBox.Show("Record inserted successfully!!!");
 
             }
@@ -48,21 +47,8 @@ namespace Visual1
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            if (rowsAffected > 0)
-            {
-                MessageBox.Show("Signup successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Hide the current form (signup form)
-                this.Hide();
-
-                // Show the sign-in form
-
-                tabPage4.Show(); // Use Show() instead if you want a non-modal window
-            }
-            else
-            {
-                MessageBox.Show("Signup failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Show the book list 
+            tabControl1.SelectedTab = tabPage4; // Use Show() instead if you want a non-modal window
         }
     }
 }
