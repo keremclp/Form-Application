@@ -57,6 +57,9 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -74,14 +77,16 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(33, 12);
+            this.tabControl1.Location = new System.Drawing.Point(31, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(900, 522);
+            this.tabControl1.Size = new System.Drawing.Size(883, 488);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textBox4);
+            this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.textBox5);
@@ -97,7 +102,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(892, 493);
+            this.tabPage1.Size = new System.Drawing.Size(875, 459);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add Book";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -188,7 +193,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 45);
+            this.label1.Location = new System.Drawing.Point(311, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 1;
@@ -206,7 +211,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(892, 493);
+            this.tabPage2.Size = new System.Drawing.Size(875, 459);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Delete Book";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -216,7 +221,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(892, 493);
+            this.tabPage3.Size = new System.Drawing.Size(875, 459);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Update Book";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -228,7 +233,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(892, 493);
+            this.tabPage4.Size = new System.Drawing.Size(875, 459);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Book List";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -253,6 +258,7 @@
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
+            this.columnHeader8,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
@@ -262,13 +268,14 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(32, 87);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(814, 371);
+            this.listView1.Size = new System.Drawing.Size(814, 354);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
+            this.columnHeader1.DisplayIndex = 0;
             this.columnHeader1.Text = "ID";
             // 
             // columnHeader2
@@ -294,6 +301,27 @@
             // columnHeader7
             // 
             this.columnHeader7.Text = "Status";
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.DisplayIndex = 1;
+            this.columnHeader8.Text = "BookID";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(207, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 16);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Book ID";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(269, 42);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(180, 22);
+            this.textBox4.TabIndex = 14;
             // 
             // ManagerForm
             // 
@@ -340,5 +368,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

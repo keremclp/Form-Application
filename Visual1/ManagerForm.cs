@@ -27,10 +27,11 @@ namespace Visual1
             
             try
             {
-                string sqlText = "INSERT INTO [Book] ([BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status]) VALUES (?, ?, ?, ?, ?, ?)";
+                string sqlText = "INSERT INTO [Book] ([Book ID], [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status]) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
+                    AccessCommand.Parameters.AddWithValue("@BookID", textBox4.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@BookName", textBox1.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Author", textBox2.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Type", textBox3.Text.ToString());
@@ -50,6 +51,7 @@ namespace Visual1
             }
             // Show the book list 
             tabControl1.SelectedTab = tabPage4; // Use Show() instead if you want a non-modal window
+            conn.Close();
         }
 
         private void show()
@@ -62,11 +64,11 @@ namespace Visual1
             AccessCommand.CommandText = ("Select * from Book");
             OleDbDataReader read = AccessCommand.ExecuteReader();
 
+
             while (read.Read())
             {
-
                 ListViewItem addNew = new ListViewItem();
-                addNew.SubItems.Add(read["ID"].ToString());
+                addNew.SubItems.Add(read["Book ID"].ToString());
                 addNew.SubItems.Add(read["BookName"].ToString());
                 addNew.SubItems.Add(read["Author"].ToString());
                 addNew.SubItems.Add(read["Type"].ToString());
