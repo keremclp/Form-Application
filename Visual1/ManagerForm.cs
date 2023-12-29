@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
@@ -51,11 +52,38 @@ namespace Visual1
             tabControl1.SelectedTab = tabPage4; // Use Show() instead if you want a non-modal window
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void show()
         {
+            listView1.Items.Clear();
             conn.Open();
+            
+            OleDbCommand AccessCommand = new OleDbCommand();
+            AccessCommand.Connection = conn;
+            AccessCommand.CommandText = ("Select * from Book");
+            OleDbDataReader read = AccessCommand.ExecuteReader();
 
+            while (read.Read())
+            {
+                ListViewItem addNew = new ListViewItem();
+
+                addNew.SubItems.Add(read["BookName"].ToString());
+                addNew.SubItems.Add(read["Author"].ToString());
+                addNew.SubItems.Add(read["Type"].ToString());
+                addNew.SubItems.Add(read["PublicationYear"].ToString());
+                addNew.SubItems.Add(read["PageNumber"].ToString());
+                addNew.SubItems.Add(read["Status"].ToString());
+
+                listView1.Items.Add(addNew);
+            }
+            conn.Close();
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            show();
+        }
+
+        
     }
 }

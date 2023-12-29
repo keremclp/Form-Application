@@ -23,7 +23,6 @@ namespace Visual1
         private void button1_Click(object sender, EventArgs e)
         {
             conn.Open();
-            int rowsAffected = 0;
             try
             {
                 string sqlText = "INSERT INTO [Users] ([Username], [Password], [Roles]) VALUES (?, ?, ?)";
@@ -34,7 +33,7 @@ namespace Visual1
                     AccessCommand.Parameters.AddWithValue("@Password", textBox2.Text);
                     AccessCommand.Parameters.AddWithValue("@Roles", comboBox1.SelectedItem.ToString());
 
-                    rowsAffected = AccessCommand.ExecuteNonQuery();
+                    AccessCommand.ExecuteNonQuery();
                 }
 
                 MessageBox.Show("You signed up, going Sign-in");
@@ -45,10 +44,6 @@ namespace Visual1
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            
-
         }
-
-        
     }
 }
