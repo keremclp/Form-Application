@@ -50,5 +50,12 @@ namespace Visual1
             // Show the book list 
             tabControl1.SelectedTab = tabPage4; // Use Show() instead if you want a non-modal window
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            conn.Open();
+
+
+        }
     }
 }

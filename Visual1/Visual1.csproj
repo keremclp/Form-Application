@@ -66,11 +66,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sign-in.cs">
+    <Compile Include="Sign-up.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sign-in.Designer.cs">
-      <DependentUpon>Sign-in.cs</DependentUpon>
+    <Compile Include="Sign-up.Designer.cs">
+      <DependentUpon>Sign-up.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -88,8 +88,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Sign-in.resx">
-      <DependentUpon>Sign-in.cs</DependentUpon>
+    <EmbeddedResource Include="Sign-up.resx">
+      <DependentUpon>Sign-up.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
