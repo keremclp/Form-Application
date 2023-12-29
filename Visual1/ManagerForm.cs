@@ -64,8 +64,9 @@ namespace Visual1
 
             while (read.Read())
             {
-                ListViewItem addNew = new ListViewItem();
 
+                ListViewItem addNew = new ListViewItem();
+                addNew.SubItems.Add(read["ID"].ToString());
                 addNew.SubItems.Add(read["BookName"].ToString());
                 addNew.SubItems.Add(read["Author"].ToString());
                 addNew.SubItems.Add(read["Type"].ToString());

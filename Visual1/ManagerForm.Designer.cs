@@ -48,13 +48,15 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -221,8 +223,8 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.button2);
             this.tabPage4.Controls.Add(this.listView1);
+            this.tabPage4.Controls.Add(this.button2);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -241,6 +243,12 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -248,40 +256,44 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(32, 153);
+            this.listView1.Location = new System.Drawing.Point(32, 87);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(837, 305);
-            this.listView1.TabIndex = 0;
+            this.listView1.Size = new System.Drawing.Size(814, 371);
+            this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // columnHeader1
             // 
-            this.columnHeader1.Width = 108;
+            this.columnHeader1.Text = "ID";
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Width = 111;
+            this.columnHeader2.Text = "BookName";
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Width = 117;
+            this.columnHeader3.Text = "Author";
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Width = 109;
+            this.columnHeader4.Text = "Type";
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Width = 114;
+            this.columnHeader5.Text = "Publication Year";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Page Number";
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Status";
             // 
             // ManagerForm
             // 
@@ -319,12 +331,14 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }
