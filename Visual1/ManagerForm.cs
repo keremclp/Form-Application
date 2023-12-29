@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -129,6 +130,40 @@ namespace Visual1
         }
 
 
+        private void UpdateForm()
+        {
+            conn.Open();
+            string bookID = textBox7.Text.Trim();
+
+            if (string.IsNullOrEmpty(bookID))
+            {
+                MessageBox.Show("Please enter a BookID to delete.");
+                return;
+            }
+
+            string sqlText = "SELECT [Book ID] FROM [Book] WHERE [Book ID] = @BookID";
+            using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
+            {
+                AccessCommand.Parameters.AddWithValue("@BookID", bookID);
+                using (OleDbDataReader reader = AccessCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Book with the specified ID exists
+                        MessageBox.Show("Book with ID " + bookID + " exists.");
+                        UpdateForm updateForm = new UpdateForm();
+                        this.Hide();
+                        updateForm.ShowDialog();
+                    }
+                    else
+                    {
+                        // Book with the specified ID does not exist
+                        MessageBox.Show("Book with ID " + bookID + " does not exist.");
+                    }
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             AddBook();
@@ -142,6 +177,11 @@ namespace Visual1
         private void button3_Click(object sender, EventArgs e)
         {
             DeleteBook();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
     }
 }
