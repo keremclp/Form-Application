@@ -153,7 +153,7 @@ namespace Visual1
             using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, conn))
             {
                 selectCommand.Parameters.AddWithValue("@BookID", bookID);
-
+                // fetching requering data and sending UpdateForm
                 using (OleDbDataReader selectReader = selectCommand.ExecuteReader())
                 {
                     if (selectReader.Read())
@@ -164,7 +164,7 @@ namespace Visual1
                         fetchedPublicationYear = DateTime.Parse(selectReader["PublicationYear"].ToString());
                         fetchedPageNumber = int.Parse(selectReader["PageNumber"].ToString());
                         fetchedStatus = bool.Parse(selectReader["Status"].ToString());
-                    }
+                    } 
                     else
                     {
                         // Handle the case where the book information is not found

@@ -60,23 +60,26 @@ namespace Visual1
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-                    AccessCommand.Parameters.AddWithValue("@BookName", textBox1.Text.ToString());
-                    AccessCommand.Parameters.AddWithValue("@Author", textBox2.Text.ToString());
-                    AccessCommand.Parameters.AddWithValue("@Type", textBox3.Text.ToString());
+
+
+
+                    AccessCommand.Parameters.AddWithValue("@BookName", textBox2.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@Author", textBox3.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@Type", textBox4.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@PublicationYear", dateTimePicker1.Value.ToString("dd-MM-yyyy"));
                     AccessCommand.Parameters.AddWithValue("@PageNumber", int.Parse(textBox6.Text));
-                    AccessCommand.Parameters.AddWithValue("@Status", false);
-                    AccessCommand.Parameters.AddWithValue("@BookID", textBox4.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@Status", checkBox1.Checked);
+                    AccessCommand.Parameters.AddWithValue("@BookID", this._bookID);  
 
                     int rowsAffected = AccessCommand.ExecuteNonQuery();
-
+                    MessageBox.Show(this._bookID);
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Record updated successfully!!!");
                     }
                     else
                     {
-                        MessageBox.Show("No matching record found for Book ID " + textBox4.Text);
+                        MessageBox.Show("No matching record found for Book ID ");
                     }
                 }
             }
@@ -92,9 +95,9 @@ namespace Visual1
             }
         }
 
-
-
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UpdateBook();
+        }
     }
 }
