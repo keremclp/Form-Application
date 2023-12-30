@@ -187,7 +187,7 @@ namespace Visual1
             updateForm.ShowDialog();
         }
 
-        private void ShowAvailableBooks()
+        private void ShowTakenBooks()
         {
             listView1.Items.Clear();
             conn.Open();
@@ -246,7 +246,7 @@ namespace Visual1
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            ShowAvailableBooks();
+            ShowTakenBooks();
 
         }
         
