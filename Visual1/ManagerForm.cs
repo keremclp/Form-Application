@@ -42,6 +42,8 @@ namespace Visual1
                 addNew.SubItems.Add(read["PublicationYear"].ToString());
                 addNew.SubItems.Add(read["PageNumber"].ToString());
                 addNew.SubItems.Add(read["Status"].ToString());
+                addNew.SubItems.Add(read["ShelfName"].ToString());
+                addNew.SubItems.Add(read["ShelfNumber"].ToString());
 
                 listView1.Items.Add(addNew);
             }
@@ -54,7 +56,7 @@ namespace Visual1
 
             try
             {
-                string sqlText = "INSERT INTO [Book] ([Book ID], [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status]) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                string sqlText = "INSERT INTO [Book] ([Book ID], [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
@@ -65,6 +67,9 @@ namespace Visual1
                     AccessCommand.Parameters.AddWithValue("@PublicationYear", dateTimePicker1.Value.ToString("dd-MM-yyyy"));
                     AccessCommand.Parameters.AddWithValue("@PageNumber", int.Parse(textBox5.Text));
                     AccessCommand.Parameters.AddWithValue("@Status", false);
+                    AccessCommand.Parameters.AddWithValue("@ShelfName", textBox8.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@ShelfNumber", textBox9.Text.ToString());
+
 
                     AccessCommand.ExecuteNonQuery();
 
@@ -147,9 +152,11 @@ namespace Visual1
             DateTime fetchedPublicationYear = DateTime.MinValue;
             int fetchedPageNumber = 0;
             bool fetchedStatus = false;
+            string fetchedShelfName = "";
+            int fetchedShelfNumber = 0;
 
 
-            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status] FROM [Book] WHERE [Book ID] = @BookID";
+            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber] FROM [Book] WHERE [Book ID] = @BookID";
             using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, conn))
             {
                 selectCommand.Parameters.AddWithValue("@BookID", bookID);
@@ -164,7 +171,9 @@ namespace Visual1
                         fetchedPublicationYear = DateTime.Parse(selectReader["PublicationYear"].ToString());
                         fetchedPageNumber = int.Parse(selectReader["PageNumber"].ToString());
                         fetchedStatus = bool.Parse(selectReader["Status"].ToString());
-                    } 
+                        fetchedShelfName = selectReader["ShelfName"].ToString();
+                        fetchedShelfNumber = int.Parse(selectReader["ShelfNumber"].ToString());
+                    }
                     else
                     {
                         // Handle the case where the book information is not found
@@ -173,12 +182,12 @@ namespace Visual1
                     }
                 }
             }
-            UpdateForm updateForm = new UpdateForm(bookID, fetchedBookName, fetchedAuthor, fetchedType, fetchedPublicationYear, fetchedPageNumber, fetchedStatus);
+            UpdateForm updateForm = new UpdateForm(bookID, fetchedBookName, fetchedAuthor, fetchedType, fetchedPublicationYear, fetchedPageNumber, fetchedStatus, fetchedShelfName, fetchedShelfNumber);
             this.Hide();
             updateForm.ShowDialog();
         }
 
-        private bool ShowAvailableBooks()
+        private void ShowAvailableBooks()
         {
             listView1.Items.Clear();
             conn.Open();
@@ -191,11 +200,9 @@ namespace Visual1
 
             OleDbDataReader read = AccessCommand.ExecuteReader();
 
-            bool booksFound = false;
-
             while (read.Read())
             {
-                booksFound = true;
+                
 
                 ListViewItem addNew = new ListViewItem();
                 addNew.SubItems.Add(read["Book ID"].ToString());
@@ -205,13 +212,14 @@ namespace Visual1
                 addNew.SubItems.Add(read["PublicationYear"].ToString());
                 addNew.SubItems.Add(read["PageNumber"].ToString());
                 addNew.SubItems.Add(read["Status"].ToString());
+                addNew.SubItems.Add(read["ShelfName"].ToString());
+                addNew.SubItems.Add(read["ShelfNumber"].ToString());
 
                 listView1.Items.Add(addNew);
             }
 
             conn.Close();
 
-            return booksFound;
         }
 
 
@@ -238,20 +246,9 @@ namespace Visual1
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Clicked");
-            bool booksExist = ShowAvailableBooks();
-
-            if (booksExist)
-            {
-                MessageBox.Show("// Books with status true were found");
-            }
-            else
-            {
-                MessageBox.Show("// No books with status true were found");
-            }
+            ShowAvailableBooks();
 
         }
-
         
     }
 }

@@ -24,7 +24,9 @@ namespace Visual1
         private DateTime _publicationYear;
         private int _pageNumber;
         private bool _status;
-        public UpdateForm(string bookID, string bookName, string author, string type, DateTime publicationYear, int pageNumber, bool status)
+        private string _shelfName;
+        private int _shelfNumber;
+        public UpdateForm(string bookID, string bookName, string author, string type, DateTime publicationYear, int pageNumber, bool status, string shelfName, int shelfNumber)
         {
             InitializeComponent();
 
@@ -35,6 +37,8 @@ namespace Visual1
             _publicationYear = publicationYear;
             _pageNumber = pageNumber;
             _status = status;
+            _shelfName = shelfName;
+            _shelfNumber = shelfNumber;
 
             // Populate the text boxes with the book information
             textBox1.Text = _bookID;
@@ -44,6 +48,8 @@ namespace Visual1
             dateTimePicker1.Value = _publicationYear;
             textBox6.Text = _pageNumber.ToString();
             checkBox1.Checked = _status;
+            textBox5.Text = _shelfName;
+            textBox7.Text = _shelfNumber.ToString();
         }
         public UpdateForm()
         {
@@ -56,20 +62,20 @@ namespace Visual1
 
             try
             {
-                string sqlText = "UPDATE [Book] SET [BookName] = ?, [Author] = ?, [Type] = ?, [PublicationYear] = ?, [PageNumber] = ?, [Status] = ? WHERE [Book ID] = ?";
+                string sqlText = "UPDATE [Book] SET [BookName] = ?, [Author] = ?, [Type] = ?, [PublicationYear] = ?, [PageNumber] = ?, [Status] = ?, [ShelfName] = ?, [ShelfNumber] = ? WHERE [Book ID] = ?";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-
-
-
                     AccessCommand.Parameters.AddWithValue("@BookName", textBox2.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Author", textBox3.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Type", textBox4.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@PublicationYear", dateTimePicker1.Value.ToString("dd-MM-yyyy"));
                     AccessCommand.Parameters.AddWithValue("@PageNumber", int.Parse(textBox6.Text));
                     AccessCommand.Parameters.AddWithValue("@Status", checkBox1.Checked);
-                    AccessCommand.Parameters.AddWithValue("@BookID", this._bookID);  
+                    AccessCommand.Parameters.AddWithValue("@ShelfName", textBox5.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@ShelfNumber", int.Parse(textBox7.Text));
+                    AccessCommand.Parameters.AddWithValue("@BookID", this._bookID);
+                    
 
                     int rowsAffected = AccessCommand.ExecuteNonQuery();
                     MessageBox.Show(this._bookID);
