@@ -178,6 +178,44 @@ namespace Visual1
             updateForm.ShowDialog();
         }
 
+        private bool ShowAvailableBooks()
+        {
+            listView1.Items.Clear();
+            conn.Open();
+
+            OleDbCommand AccessCommand = new OleDbCommand();
+            AccessCommand.Connection = conn;
+
+            // Select only the books where the Status is true
+            AccessCommand.CommandText = "SELECT * FROM Book WHERE Status = true";
+
+            OleDbDataReader read = AccessCommand.ExecuteReader();
+
+            bool booksFound = false;
+
+            while (read.Read())
+            {
+                booksFound = true;
+
+                ListViewItem addNew = new ListViewItem();
+                addNew.SubItems.Add(read["Book ID"].ToString());
+                addNew.SubItems.Add(read["BookName"].ToString());
+                addNew.SubItems.Add(read["Author"].ToString());
+                addNew.SubItems.Add(read["Type"].ToString());
+                addNew.SubItems.Add(read["PublicationYear"].ToString());
+                addNew.SubItems.Add(read["PageNumber"].ToString());
+                addNew.SubItems.Add(read["Status"].ToString());
+
+                listView1.Items.Add(addNew);
+            }
+
+            conn.Close();
+
+            return booksFound;
+        }
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             AddBook();
@@ -197,5 +235,23 @@ namespace Visual1
         {
             UpdateForm();
         }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("Clicked");
+            bool booksExist = ShowAvailableBooks();
+
+            if (booksExist)
+            {
+                MessageBox.Show("// Books with status true were found");
+            }
+            else
+            {
+                MessageBox.Show("// No books with status true were found");
+            }
+
+        }
+
+        
     }
 }
