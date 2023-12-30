@@ -79,10 +79,10 @@ namespace Visual1
             }
             finally
             {
+                // Show the book list 
                 tabControl1.SelectedTab = tabPage4; // Use Show() instead if you want a non-modal window
                 conn.Close();
             }
-            // Show the book list 
 
         }
 
@@ -141,27 +141,41 @@ namespace Visual1
                 return;
             }
 
-            string sqlText = "SELECT [Book ID] FROM [Book] WHERE [Book ID] = @BookID";
-            using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
+            string fetchedBookName = "";
+            string fetchedAuthor = "";
+            string fetchedType = "";
+            DateTime fetchedPublicationYear = DateTime.MinValue;
+            int fetchedPageNumber = 0;
+            bool fetchedStatus = false;
+
+
+            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status] FROM [Book] WHERE [Book ID] = @BookID";
+            using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, conn))
             {
-                AccessCommand.Parameters.AddWithValue("@BookID", bookID);
-                using (OleDbDataReader reader = AccessCommand.ExecuteReader())
+                selectCommand.Parameters.AddWithValue("@BookID", bookID);
+
+                using (OleDbDataReader selectReader = selectCommand.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (selectReader.Read())
                     {
-                        // Book with the specified ID exists
-                        MessageBox.Show("Book with ID " + bookID + " exists.");
-                        UpdateForm updateForm = new UpdateForm();
-                        this.Hide();
-                        updateForm.ShowDialog();
+                        fetchedBookName = selectReader["BookName"].ToString();
+                        fetchedAuthor = selectReader["Author"].ToString();
+                        fetchedType = selectReader["Type"].ToString();
+                        fetchedPublicationYear = DateTime.Parse(selectReader["PublicationYear"].ToString());
+                        fetchedPageNumber = int.Parse(selectReader["PageNumber"].ToString());
+                        fetchedStatus = bool.Parse(selectReader["Status"].ToString());
                     }
                     else
                     {
-                        // Book with the specified ID does not exist
-                        MessageBox.Show("Book with ID " + bookID + " does not exist.");
+                        // Handle the case where the book information is not found
+                        MessageBox.Show("Book information not found for Book ID " + bookID);
+                        return;
                     }
                 }
             }
+            UpdateForm updateForm = new UpdateForm(bookID, fetchedBookName, fetchedAuthor, fetchedType, fetchedPublicationYear, fetchedPageNumber, fetchedStatus);
+            this.Hide();
+            updateForm.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
