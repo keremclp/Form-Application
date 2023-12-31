@@ -24,7 +24,6 @@ namespace Visual1
 
         private ArrayList managerCodes = new ArrayList() { "Manager1", "Manager2", "Manager3", "Manager4", "Manager5" };
 
-        // Declare AccessCommand at the class level
         private OleDbCommand AccessCommand;
         private TextBox textBoxManagerCode;
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
