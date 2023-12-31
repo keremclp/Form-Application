@@ -15,7 +15,7 @@ namespace Visual1
     public partial class Sign_up : Form
     {
         private static Form1 signInFormInstance;
-        public Sign_up()
+        public Sign_up()  
         {
             InitializeComponent();
             signInFormInstance = new Form1();
@@ -47,7 +47,6 @@ namespace Visual1
             }
             else
             {
-                // No need to remove textBoxManagerCode here
                 // Remove the dynamically created TextBox and Label if Client is selected
                 Control textBoxManagerCode = this.Controls["textBoxManagerCode"];
                 Control labelCode = this.Controls["labelCode"];
@@ -109,8 +108,6 @@ namespace Visual1
             }
         }
 
-
-
-
+       
     }
 }
