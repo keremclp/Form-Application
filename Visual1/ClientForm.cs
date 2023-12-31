@@ -13,9 +13,13 @@ namespace Visual1
 {
     public partial class ClientForm : Form
     {
-        public ClientForm()
+        private string username;
+        private string password;
+        public ClientForm(string username, string password)
         {
             InitializeComponent();
+            this.username = username;
+            this.password = password;
         }
         OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
 
@@ -33,6 +37,7 @@ namespace Visual1
                 {
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
+                    dataTable.Columns.Remove("Kimlik");
 
                     // Update the DataGridView with the search results
                     dataGridView1.DataSource = dataTable;
@@ -46,5 +51,12 @@ namespace Visual1
             string searchTerm = textBox1.Text;
             searchBookName(searchTerm);
         }
+
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+            searchBookName("");
+        }
+
+        
     }
 }

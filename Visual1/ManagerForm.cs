@@ -50,6 +50,54 @@ namespace Visual1
             conn.Close();
 
         }
+        private void ShowTakenBooks()
+        {
+            listView1.Items.Clear();
+            MessageBox.Show("entered");
+            try
+            {
+                MessageBox.Show("try entered");
+
+                conn.Open();
+
+                OleDbCommand accessCommand = new OleDbCommand();
+                accessCommand.Connection = conn;
+
+                // Select borrowed books along with client details
+                accessCommand.CommandText = "SELECT bb.*, b.BookName, c.ClientName " +
+                             "FROM (BorrowedBooks bb " +
+                             "INNER JOIN Book b ON bb.BookID = b.BookID) " +
+                             "INNER JOIN ClientProfile c ON bb.ClientID = c.ClientID";
+
+                OleDbDataReader read = accessCommand.ExecuteReader();
+                MessageBox.Show("before while");
+
+                while (read.Read())
+                {
+                    MessageBox.Show("while");
+                    MessageBox.Show(read["ClientName"].ToString());
+
+                    ListViewItem addNew = new ListViewItem();
+                    addNew.SubItems.Add(read["BookID"].ToString());
+                    addNew.SubItems.Add(read["BookName"].ToString());
+                    addNew.SubItems.Add(read["ClientID"].ToString());
+                    addNew.SubItems.Add(read["ClientName"].ToString());
+                    addNew.SubItems.Add(read["BorrowDate"].ToString());
+
+                    // Add the rest of the columns as needed
+
+                    listView2.Items.Add(addNew);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
         private void AddBook() 
         {
             conn.Open();
@@ -187,40 +235,10 @@ namespace Visual1
             updateForm.ShowDialog();
         }
 
-        private void ShowTakenBooks()
-        {
-            listView1.Items.Clear();
-            conn.Open();
+        
 
-            OleDbCommand AccessCommand = new OleDbCommand();
-            AccessCommand.Connection = conn;
 
-            // Select only the books where the Status is true
-            AccessCommand.CommandText = "SELECT * FROM Book WHERE Status = true";
 
-            OleDbDataReader read = AccessCommand.ExecuteReader();
-
-            while (read.Read())
-            {
-                
-
-                ListViewItem addNew = new ListViewItem();
-                addNew.SubItems.Add(read["Book ID"].ToString());
-                addNew.SubItems.Add(read["BookName"].ToString());
-                addNew.SubItems.Add(read["Author"].ToString());
-                addNew.SubItems.Add(read["Type"].ToString());
-                addNew.SubItems.Add(read["PublicationYear"].ToString());
-                addNew.SubItems.Add(read["PageNumber"].ToString());
-                addNew.SubItems.Add(read["Status"].ToString());
-                addNew.SubItems.Add(read["ShelfName"].ToString());
-                addNew.SubItems.Add(read["ShelfNumber"].ToString());
-
-                listView1.Items.Add(addNew);
-            }
-
-            conn.Close();
-
-        }
 
 
 
@@ -244,11 +262,10 @@ namespace Visual1
             UpdateForm();
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
             ShowTakenBooks();
 
         }
-        
     }
 }

@@ -27,8 +27,10 @@ namespace Visual1
                 string sqlText = "SELECT [Roles] FROM [Users] WHERE [Username] = ? AND [Password] = ?";
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-                    AccessCommand.Parameters.AddWithValue("@Username", textBox1.Text.ToString());
-                    AccessCommand.Parameters.AddWithValue("@Password", textBox2.Text.ToString());
+                    string username = textBox1.Text.ToString();
+                    string password = textBox2.Text.ToString();
+                    AccessCommand.Parameters.AddWithValue("@Username",username );
+                    AccessCommand.Parameters.AddWithValue("@Password", password);
 
                     object result = AccessCommand.ExecuteScalar();
 
@@ -49,7 +51,8 @@ namespace Visual1
                         }
                         else if (role.Equals("Client", StringComparison.OrdinalIgnoreCase))
                         {
-                            ClientForm clientForm = new ClientForm();
+
+                            ClientForm clientForm = new ClientForm(username,password);
                             clientForm.ShowDialog(); // Use Show() instead if you want a non-modal window
                         }
                     }
