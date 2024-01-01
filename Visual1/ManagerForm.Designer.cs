@@ -82,11 +82,12 @@
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button5 = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -462,6 +463,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button7);
             this.tabPage5.Controls.Add(this.listView2);
             this.tabPage5.Controls.Add(this.button5);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
@@ -538,28 +540,15 @@
             this.tabPage6.Text = "ReturnBook";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // textBox10
+            // button6
             // 
-            this.textBox10.Location = new System.Drawing.Point(268, 43);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(198, 22);
-            this.textBox10.TabIndex = 0;
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(268, 89);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(198, 22);
-            this.textBox11.TabIndex = 1;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(181, 43);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 16);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Book id";
+            this.button6.Location = new System.Drawing.Point(379, 166);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(86, 23);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "ReturnBook";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label13
             // 
@@ -570,15 +559,38 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "tc";
             // 
-            // button6
+            // label12
             // 
-            this.button6.Location = new System.Drawing.Point(379, 166);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(86, 23);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "ReturnBook";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(181, 43);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 16);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Book id";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(268, 89);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(198, 22);
+            this.textBox11.TabIndex = 1;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(268, 43);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(198, 22);
+            this.textBox10.TabIndex = 0;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(189, 30);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(204, 23);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "SEE TAKEN BOOKS CHART";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // ManagerForm
             // 
@@ -662,5 +674,6 @@
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }

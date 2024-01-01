@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorChart.Designer.cs">
+      <DependentUpon>AuthorChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="BorrowForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,12 +91,21 @@
     <Compile Include="Sign-up.Designer.cs">
       <DependentUpon>Sign-up.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakenBookChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakenBookChart.Designer.cs">
+      <DependentUpon>TakenBookChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UpdateForm.Designer.cs">
       <DependentUpon>UpdateForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AuthorChart.resx">
+      <DependentUpon>AuthorChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BorrowForm.resx">
       <DependentUpon>BorrowForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +133,9 @@
     </Compile>
     <EmbeddedResource Include="Sign-up.resx">
       <DependentUpon>Sign-up.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakenBookChart.resx">
+      <DependentUpon>TakenBookChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateForm.resx">
       <DependentUpon>UpdateForm.cs</DependentUpon>

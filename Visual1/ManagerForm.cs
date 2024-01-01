@@ -404,5 +404,11 @@ namespace Visual1
 
             
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            TakenBookChart takenBookChart = new TakenBookChart();
+            takenBookChart.Show();
+        }
     }
 }

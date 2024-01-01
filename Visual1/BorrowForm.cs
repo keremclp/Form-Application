@@ -187,10 +187,15 @@ namespace Visual1
         private void button1_Click(object sender, EventArgs e)
         {
             string id = textBox1.Text.ToString();
-            string tc = textBox2.Text.ToString();   
-            BorrowBook(id);
+            string tc = textBox2.Text.ToString();       
             int bookID = GetBookIDById(id);
             int clientID = GetClientIDById(tc);
+            // check the if it -1
+            if(bookID==1 || clientID == -1)
+            {
+                MessageBox.Show("Please enter a valid values");
+                return;
+            }
 
             try
             {
