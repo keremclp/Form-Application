@@ -117,10 +117,45 @@ namespace Visual1
             }
         }
 
+        private bool HasBorrowed(string tc, int bookID, int clientID)
+        {
+            try
+            {
+                conn.Open();
+                string sqlText = "SELECT COUNT(*) FROM [BorrowedBooks] WHERE [ID] = @ID AND [BookID] = @BookID AND [ClientID] = @ClientID";
+
+                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", tc);
+                    cmd.Parameters.AddWithValue("@BookID", bookID);
+                    cmd.Parameters.AddWithValue("@ClientID", clientID);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         private void CreateBorrowedBooks(string tc, int bookID, int clientID)
         {
             try
             {
+                if (HasBorrowed(tc, bookID, clientID))
+                {
+                    MessageBox.Show("User has already borrowed this book.");
+                    return;
+                }
+
                 conn.Open();
                 // Assuming your status field is of boolean type in the database
                 string sqlText = "INSERT INTO [BorrowedBooks] ([ID], [BookID], [ClientID], [BorrowDate]) VALUES (?, ?, ?, ?)";
@@ -128,23 +163,25 @@ namespace Visual1
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
                     AccessCommand.Parameters.AddWithValue("@ID", tc);
-                    AccessCommand.Parameters.AddWithValue("@BookID",bookID );
+                    AccessCommand.Parameters.AddWithValue("@BookID", bookID);
                     AccessCommand.Parameters.AddWithValue("@ClientID", clientID);
-                    AccessCommand.Parameters.AddWithValue("@BorrowedDate", DateTime.Today );
+                    AccessCommand.Parameters.AddWithValue("@BorrowedDate", DateTime.Today);
 
                     AccessCommand.ExecuteNonQuery();
 
+                    MessageBox.Show("Book borrowed successfully.");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            finally { conn.Close(); }
-            
-                
-            
+            finally
+            {
+                conn.Close();
+            }
         }
+
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -158,7 +195,6 @@ namespace Visual1
             try
             {
                 CreateBorrowedBooks(tc, bookID, clientID);
-                MessageBox.Show("Borrowed Book recorded");
             }
             catch (Exception ex)
             {
@@ -168,18 +204,14 @@ namespace Visual1
             try
             {
                 BorrowBook(id);
-                MessageBox.Show("Borrwoed Book updated");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-
-
-
-
         }
+
+        
 
     }
 }
