@@ -35,7 +35,7 @@ namespace Visual1
             while (read.Read())
             {
                 ListViewItem addNew = new ListViewItem();
-                addNew.SubItems.Add(read["Book ID"].ToString());
+                addNew.SubItems.Add(read["ID"].ToString());
                 addNew.SubItems.Add(read["BookName"].ToString());
                 addNew.SubItems.Add(read["Author"].ToString());
                 addNew.SubItems.Add(read["Type"].ToString());
@@ -53,10 +53,8 @@ namespace Visual1
         private void ShowTakenBooks()
         {
             listView1.Items.Clear();
-            MessageBox.Show("entered");
             try
             {
-                MessageBox.Show("try entered");
 
                 conn.Open();
 
@@ -64,23 +62,20 @@ namespace Visual1
                 accessCommand.Connection = conn;
 
                 // Select borrowed books along with client details
-                accessCommand.CommandText = "SELECT bb.*, b.BookName, c.ClientName " +
+                accessCommand.CommandText = "SELECT bb.*, b.BookName, c.ClientName, c.TC " +
                              "FROM (BorrowedBooks bb " +
                              "INNER JOIN Book b ON bb.BookID = b.BookID) " +
                              "INNER JOIN ClientProfile c ON bb.ClientID = c.ClientID";
 
                 OleDbDataReader read = accessCommand.ExecuteReader();
-                MessageBox.Show("before while");
 
                 while (read.Read())
                 {
-                    MessageBox.Show("while");
-                    MessageBox.Show(read["ClientName"].ToString());
-
+                   
                     ListViewItem addNew = new ListViewItem();
                     addNew.SubItems.Add(read["BookID"].ToString());
                     addNew.SubItems.Add(read["BookName"].ToString());
-                    addNew.SubItems.Add(read["ClientID"].ToString());
+                    addNew.SubItems.Add(read["TC"].ToString());
                     addNew.SubItems.Add(read["ClientName"].ToString());
                     addNew.SubItems.Add(read["BorrowDate"].ToString());
 
@@ -104,11 +99,11 @@ namespace Visual1
 
             try
             {
-                string sqlText = "INSERT INTO [Book] ([Book ID], [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                string sqlText = "INSERT INTO [Book] ([ID], [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-                    AccessCommand.Parameters.AddWithValue("@BookID", textBox4.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@ID", textBox4.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@BookName", textBox1.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Author", textBox2.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Type", textBox3.Text.ToString());
@@ -153,7 +148,7 @@ namespace Visual1
                     return;
                 }
 
-                string sqlText = "DELETE FROM [Book] WHERE [Book ID] = @BookID";
+                string sqlText = "DELETE FROM [Book] WHERE [ID] = @BookID";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
@@ -204,7 +199,7 @@ namespace Visual1
             int fetchedShelfNumber = 0;
 
 
-            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber] FROM [Book] WHERE [Book ID] = @BookID";
+            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber] FROM [Book] WHERE [ID] = @BookID";
             using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, conn))
             {
                 selectCommand.Parameters.AddWithValue("@BookID", bookID);
@@ -225,7 +220,7 @@ namespace Visual1
                     else
                     {
                         // Handle the case where the book information is not found
-                        MessageBox.Show("Book information not found for Book ID " + bookID);
+                        MessageBox.Show("Book information not found for ID " + bookID);
                         return;
                     }
                 }

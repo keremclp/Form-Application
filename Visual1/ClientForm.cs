@@ -37,7 +37,7 @@ namespace Visual1
                 {
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
-                    dataTable.Columns.Remove("Kimlik");
+                    dataTable.Columns.Remove("BookID");
 
                     // Update the DataGridView with the search results
                     dataGridView1.DataSource = dataTable;
@@ -57,6 +57,16 @@ namespace Visual1
             searchBookName("");
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BorrowForm borrowForm = new BorrowForm();
+            borrowForm.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            EditForm editForm = new EditForm(); 
+            editForm.ShowDialog();
+        }
     }
 }
