@@ -19,7 +19,7 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
 
         private void AuthorChart_Paint(object sender, PaintEventArgs e)
         {

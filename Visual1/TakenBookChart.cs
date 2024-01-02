@@ -20,7 +20,7 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
 
         private void TakenBooksChart_Paint(object sender, PaintEventArgs e)
         {
@@ -117,9 +117,11 @@ namespace Visual1
         }
 
         private Color RandomColor()
-{
-    return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
-}
+        {
+            return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
+        }
+
+        
     }
 }
 

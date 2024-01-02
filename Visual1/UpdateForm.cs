@@ -55,14 +55,14 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
         private void UpdateBook()
         {
             conn.Open();
 
             try
             {
-                string sqlText = "UPDATE [Book] SET [BookName] = ?, [Author] = ?, [Type] = ?, [PublicationYear] = ?, [PageNumber] = ?, [Status] = ?, [ShelfName] = ?, [ShelfNumber] = ? WHERE [Book ID] = ?";
+                string sqlText = "UPDATE [Book] SET [BookName] = ?, [Author] = ?, [Type] = ?, [PublicationYear] = ?, [PageNumber] = ?, [Status] = ?, [ShelfName] = ?, [ShelfNumber] = ? WHERE [ID] = ?";
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
@@ -85,7 +85,7 @@ namespace Visual1
                     }
                     else
                     {
-                        MessageBox.Show("No matching record found for Book ID ");
+                        MessageBox.Show("No matching record found for ID ");
                     }
                 }
             }
@@ -101,9 +101,22 @@ namespace Visual1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             UpdateBook();
+        }
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close(); // Close the current form (UpdateForm)
+            ManagerForm managerForm = new ManagerForm();
+            managerForm.Show(); // Show the ManagerForm
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

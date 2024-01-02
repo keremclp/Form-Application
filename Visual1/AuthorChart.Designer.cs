@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1343, 802);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "AuthorChart";
             this.Text = "AuthorChart";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AuthorChart_Paint);

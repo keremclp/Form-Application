@@ -18,7 +18,7 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
 
         private void EditProfile()
         {
@@ -34,7 +34,7 @@ namespace Visual1
                 AccessCommand.Parameters.AddWithValue("@TC", textBox1.Text.ToString());
                 AccessCommand.Parameters.AddWithValue("@Name", textBox2.Text.ToString());
 
-                
+
 
                 AccessCommand.ExecuteNonQuery();
 
@@ -52,7 +52,17 @@ namespace Visual1
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Hide(); // Close the current form (EditForm)
+            ClientForm clientForm = new ClientForm();
+            clientForm.Show(); // Show the ClientForm
+        }
+
+        
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             EditProfile();
         }

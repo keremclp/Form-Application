@@ -13,15 +13,13 @@ namespace Visual1
 {
     public partial class ClientForm : Form
     {
-        private string username;
-        private string password;
-        public ClientForm(string username, string password)
+      
+        public ClientForm()
         {
             InitializeComponent();
-            this.username = username;
-            this.password = password;
+            
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
 
         private void searchBookName(string searchTerm)
         {
@@ -46,30 +44,33 @@ namespace Visual1
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
             string searchTerm = textBox1.Text;
             searchBookName(searchTerm);
         }
 
-        private void ClientForm_Load(object sender, EventArgs e)
+        private void ClientForm_Load_1(object sender, EventArgs e)
         {
             searchBookName("");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            EditForm editForm = new EditForm();
+            editForm.ShowDialog();
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
             BorrowForm borrowForm = new BorrowForm();
             borrowForm.ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            EditForm editForm = new EditForm(); 
-            editForm.ShowDialog();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             AuthorChart authorChart = new AuthorChart();
             authorChart.Show();

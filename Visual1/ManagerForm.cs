@@ -20,9 +20,7 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
-
-        // Showing Books
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
         private void ShowBookList()
         {
             listView1.Items.Clear();
@@ -50,8 +48,8 @@ namespace Visual1
                 listView1.Items.Add(addNew);
             }
             conn.Close();
-
         }
+
         private void ShowTakenBooks()
         {
             listView1.Items.Clear();
@@ -73,7 +71,7 @@ namespace Visual1
 
                 while (read.Read())
                 {
-                   
+
                     ListViewItem addNew = new ListViewItem();
                     addNew.SubItems.Add(read["BookID"].ToString());
                     addNew.SubItems.Add(read["BookName"].ToString());
@@ -95,7 +93,138 @@ namespace Visual1
                 conn.Close();
             }
         }
-        // ADD Book
+
+        private int GetBookIDById(string id)
+        {
+            int bookID = -1; // Default value indicating not found
+            string sqlText = "SELECT [BookID] FROM [Book] WHERE [ID] = @ID";
+            try
+            {
+                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", id);
+
+                    conn.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out bookID))
+                    {
+                        // Successfully parsed as an integer
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return bookID;
+        }
+
+        private int GetClientIDById(string tc)
+        {
+            int bookID = -1;
+            string sqlText = "SELECT [ClientID] FROM [ClientProfile] WHERE [TC] = @TC";
+            try
+            {
+                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TC", tc);
+
+                    conn.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out bookID))
+                    {
+                        // Successfully parsed as an integer
+                    }
+                    if(bookID  == -1)
+                    {
+                        MessageBox.Show("Hahooo aq");
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return bookID;
+        }
+
+        private void DeleteBorrowedBooks(string tc, int bookID, int clientID)
+        {
+            try
+            {
+                conn.Open();
+
+                string sqlText = "DELETE FROM [BorrowedBooks] WHERE [ID] = @ID AND [BookID] = @BookID AND [ClientID] = @ClientID";
+
+                using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
+                {
+                    AccessCommand.Parameters.AddWithValue("@ID", tc);
+                    AccessCommand.Parameters.AddWithValue("@BookID", bookID);
+                    AccessCommand.Parameters.AddWithValue("@ClientID", clientID);
+
+                    AccessCommand.ExecuteNonQuery();
+
+                    MessageBox.Show("Book deleted successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void ReturnBook(string id)
+        {
+            // Update the status field
+            try
+            {
+                conn.Open();
+                string sqlText = "UPDATE [Book] SET [Status] = false WHERE [ID] = @ID";
+
+                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
+                {
+                    // Use parameters to avoid SQL injection
+                    cmd.Parameters.AddWithValue("@ID", id);
+
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Book status updated successfully");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Book not found or status update failed");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
         private void AddBook() 
         {
             conn.Open();
@@ -106,7 +235,7 @@ namespace Visual1
 
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-                    AccessCommand.Parameters.AddWithValue("@ID", textBox4.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@BookID", textBox4.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@BookName", textBox1.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Author", textBox2.Text.ToString());
                     AccessCommand.Parameters.AddWithValue("@Type", textBox3.Text.ToString());
@@ -136,7 +265,7 @@ namespace Visual1
             }
 
         }
-        // Delete Book
+
         private void DeleteBook()
         {
             conn.Open();
@@ -180,7 +309,7 @@ namespace Visual1
             }
         }
 
-        // Update book
+
         private void UpdateForm()
         {
             conn.Open();
@@ -202,10 +331,10 @@ namespace Visual1
             int fetchedShelfNumber = 0;
 
 
-            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber] FROM [Book] WHERE [ID] = @BookID";
+            string selectQuery = "SELECT [BookName], [Author], [Type], [PublicationYear], [PageNumber], [Status], [ShelfName], [ShelfNumber] FROM [Book] WHERE [ID] = @ID";
             using (OleDbCommand selectCommand = new OleDbCommand(selectQuery, conn))
             {
-                selectCommand.Parameters.AddWithValue("@BookID", bookID);
+                selectCommand.Parameters.AddWithValue("@ID", bookID);
                 // fetching requering data and sending UpdateForm
                 using (OleDbDataReader selectReader = selectCommand.ExecuteReader())
                 {
@@ -232,166 +361,46 @@ namespace Visual1
             this.Hide();
             updateForm.ShowDialog();
         }
-        // Button click -> returning book
-        private int GetBookIDById(string id)
-        {
-            int bookID = -1; // Default value indicating not found
-            string sqlText = "SELECT [BookID] FROM [Book] WHERE [ID] = @ID";
-            try
-            {
-                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
-                {
-                    cmd.Parameters.AddWithValue("@ID", id);
 
-                    conn.Open();
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null && int.TryParse(result.ToString(), out bookID))
-                    {
-                        // Successfully parsed as an integer
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return bookID;
-        }
-        private int GetClientIDById(string tc)
-        {
-            int bookID = -1; 
-            string sqlText = "SELECT [ClientID] FROM [ClientProfile] WHERE [TC] = @TC";
-            try
-            {
-                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
-                {
-                    cmd.Parameters.AddWithValue("@TC", tc);
-
-                    conn.Open();
-                    object result = cmd.ExecuteScalar();
-
-                    if (result != null && int.TryParse(result.ToString(), out bookID))
-                    {
-                        // Successfully parsed as an integer
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return bookID;
-        }
         
-        private void ReturnBook(string id)
-        {
-            // Update the status field
-            try
-            {
-                conn.Open();
-                string sqlText = "UPDATE [Book] SET [Status] = false WHERE [ID] = @ID";
-
-                using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
-                {
-                    // Use parameters to avoid SQL injection
-                    cmd.Parameters.AddWithValue("@ID", id);
 
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
 
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Book status updated successfully");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Book not found or status update failed");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        private void DeleteBorrowedBooks(string tc, int bookID, int clientID)
-        {
-            try
-            {
-                conn.Open();
-                
-                string sqlText = "DELETE FROM [BorrowedBooks] WHERE [ID] = @ID AND [BookID] = @BookID AND [ClientID] = @ClientID";
-
-                using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
-                {
-                    AccessCommand.Parameters.AddWithValue("@ID", tc);
-                    AccessCommand.Parameters.AddWithValue("@BookID", bookID);
-                    AccessCommand.Parameters.AddWithValue("@ClientID", clientID);
-
-                    AccessCommand.ExecuteNonQuery();
-
-                    MessageBox.Show("Book deleted successfully.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddBook();
-        }
-
+ 
         private void button2_Click(object sender, EventArgs e)
         {
             ShowBookList();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+    
+         private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            AddBook();
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
         {
             DeleteBook();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void pictureBox5_Click(object sender, EventArgs e)
         {
             UpdateForm();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             ShowTakenBooks();
-
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             string id = textBox10.Text.ToString();
             string tc = textBox11.Text.ToString();
-            
+
             int bookID = GetBookIDById(id);
             int clientID = GetClientIDById(tc);
-            
+
             try
             {
                 ReturnBook(id);
@@ -401,11 +410,9 @@ namespace Visual1
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-            
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             TakenBookChart takenBookChart = new TakenBookChart();
             takenBookChart.Show();

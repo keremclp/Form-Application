@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Visual1
 {
@@ -17,9 +18,12 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
 
-        private void button1_Click_1(object sender, EventArgs e)
+
+    
+
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
             conn.Open();
             try
@@ -27,10 +31,8 @@ namespace Visual1
                 string sqlText = "SELECT [Roles] FROM [Users] WHERE [Username] = ? AND [Password] = ?";
                 using (OleDbCommand AccessCommand = new OleDbCommand(sqlText, conn))
                 {
-                    string username = textBox1.Text.ToString();
-                    string password = textBox2.Text.ToString();
-                    AccessCommand.Parameters.AddWithValue("@Username",username );
-                    AccessCommand.Parameters.AddWithValue("@Password", password);
+                    AccessCommand.Parameters.AddWithValue("@Username", textBox1.Text.ToString());
+                    AccessCommand.Parameters.AddWithValue("@Password", textBox2.Text.ToString());
 
                     object result = AccessCommand.ExecuteScalar();
 
@@ -52,9 +54,10 @@ namespace Visual1
                         else if (role.Equals("Client", StringComparison.OrdinalIgnoreCase))
                         {
 
-                            ClientForm clientForm = new ClientForm(username,password);
+                            ClientForm clientForm = new ClientForm();
                             clientForm.ShowDialog(); // Use Show() instead if you want a non-modal window
                         }
+
                     }
                     else
                     {
@@ -72,12 +75,16 @@ namespace Visual1
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
             Sign_up signup = new Sign_up();
             this.Hide();
             signup.ShowDialog();
         }
+
+
+
 
 
         /*

@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +95,18 @@
     </Compile>
     <Compile Include="TakenBookChart.Designer.cs">
       <DependentUpon>TakenBookChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\RJButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\RJCircularPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\RJTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\RJTextBox.Designer.cs">
+      <DependentUpon>RJTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="UpdateForm.cs">
       <SubType>Form</SubType>
@@ -158,9 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\11.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WhatsApp Image 2023-02-02 at 16.02.06.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

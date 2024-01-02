@@ -18,7 +18,7 @@ namespace Visual1
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\ThinkPad\\Documents\\VisualProject.accdb");
+        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\Med Botan\\Desktop\\VisualProject.accdb");
         private int GetBookIDById(string id)
         {
             int bookID = -1; // Default value indicating not found
@@ -38,7 +38,7 @@ namespace Visual1
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
@@ -88,13 +88,13 @@ namespace Visual1
             {
                 conn.Open();
                 string sqlText = "UPDATE [Book] SET [Status] = true WHERE [ID] = @ID";
-                
+
                 using (OleDbCommand cmd = new OleDbCommand(sqlText, conn))
                 {
                     // Use parameters to avoid SQL injection
                     cmd.Parameters.AddWithValue("@ID", id);
 
-                    
+
                     int rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
@@ -184,19 +184,18 @@ namespace Visual1
 
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             string id = textBox1.Text.ToString();
-            string tc = textBox2.Text.ToString();       
+            string tc = textBox2.Text.ToString();
             int bookID = GetBookIDById(id);
             int clientID = GetClientIDById(tc);
             // check the if it -1
-            if(bookID==1 || clientID == -1)
+            if (bookID == 1 || clientID == -1)
             {
                 MessageBox.Show("Please enter a valid values");
                 return;
             }
-
             try
             {
                 CreateBorrowedBooks(tc, bookID, clientID);
@@ -216,7 +215,12 @@ namespace Visual1
             }
         }
 
-        
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Hide(); // Close the current form (EditForm)
+            ClientForm clientForm = new ClientForm();
+            clientForm.Show(); // Show the ClientForm
+        }
 
     }
 }
